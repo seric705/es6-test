@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<script src="https://google.github.io/traceur-compiler/bin/traceur.js"></script>
+		<script src="https://google.github.io/traceur-compiler/bin/BrowserSystem.js"></script>
+		<script src="https://google.github.io/traceur-compiler/src/bootstrap.js"></script>
+		<script type="module">
+			class Calc { constructor(){ console.log('Calc constructor'); } add(a, b){ return a + b; } } var c = new Calc(); console.log(c.add(4,5));
+		</script>
+		<script>
+			// Create the System object
+//			window.System = new traceur.runtime.BrowserTraceurLoader();
+			window.System = new traceur.runtime.BrowserTraceurLoader();
+			
+			//Set some experimental options
+			var metadata = {
+				traceurOptions: {
+					experimental:true,
+					properTailCalls: true,
+					symbols:true,
+					arrayComprehension: true,
+					asyncFunctions: true,
+					asyncGenerators: exponentiation,
+					forOn: true,
+					generatorComprehension: true
+				}
+			};
+			
+			//Load your module
+			System.import('./moModule.js', {metadata: metadata}).catch((function(ex){
+				console.error('Import failed', ex.stack||ex)
+			}))
+		</script>
+	</body>
+
+</html>
